@@ -135,6 +135,8 @@ public class GuiConfig extends GuiScreen {
             case ANVIL:
                 genAnvilInfo();
                 break;
+            default: //do nothing
+                break;
         }
     }
 
@@ -147,11 +149,9 @@ public class GuiConfig extends GuiScreen {
             save();
             Logger.info("actionPerformed(b)", "Saving & closing Crafting Keys GUI now!");
             mc.thePlayer.closeScreen();
-        } else if (button.id >= 0 && button.id <= 11) {
-            if (selectedButtonID == -1) {
-                selectedButtonID = button.id;
-                configButtons.get(selectedButtonID).displayString = "...";
-            }
+        } else if (button.id >= 0 && button.id <= 11 && selectedButtonID == -1) {
+            selectedButtonID = button.id;
+            configButtons.get(selectedButtonID).displayString = "...";
         }
     }
 
@@ -188,12 +188,10 @@ public class GuiConfig extends GuiScreen {
                 }
             }
 
-        } else if (selectedButtonID != -1) {
-            if (!ArrayUtils.contains(keyValues, keyCode) || keyValues[selectedButtonID] == keyCode) { // No double keys
-                keyValues[selectedButtonID] = keyCode;
-                selectedButtonID = -1;
-                drawKeyValues();
-            }
+        } else if (selectedButtonID != -1 && !ArrayUtils.contains(keyValues, keyCode) || keyValues[selectedButtonID] == keyCode) {
+            keyValues[selectedButtonID] = keyCode;
+            selectedButtonID = -1;
+            drawKeyValues();
         }
 
     }
@@ -397,6 +395,8 @@ public class GuiConfig extends GuiScreen {
                 break;
             case 6:
                 guiShowType = GuiType.ANVIL;
+                break;
+            default: //do nothing
                 break;
         }
         if (guiShowState >= 6) {

@@ -3,10 +3,10 @@ package de.skate702.craftingkeys.util;
 // NEW_1_8 cpw.mods.fml => net.minecraftforge.fml
 // NEW_1_9 net.minecraft.util.text.TextComponentTranslation;
 
-import cpw.mods.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 
 /**
  * Provides basic utility methods. For input methods, look at InputUtil.
@@ -44,7 +44,7 @@ public class Util {
      */
     public static boolean isHoldingStack() {
         // NEW_1_11 return (getHeldStack().func_190916_E() != 0);
-        return (getHeldStack() != null);
+        return (getHeldStack().func_190916_E() != 0);
     }
 
     /**
@@ -68,7 +68,7 @@ public class Util {
      * @param lang_key key from lang-file
      */
     public static void printMessage(String lang_key) {
-        client.thePlayer.addChatMessage(new ChatComponentTranslation(lang_key));
+        client.thePlayer.addChatMessage(new TextComponentTranslation(lang_key));
         // NEW_1_9 client.thePlayer.addChatMessage(new TextComponentTranslation(lang_key));
     }
 
