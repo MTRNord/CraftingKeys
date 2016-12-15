@@ -171,7 +171,7 @@ public class Gui extends GuiScreen{
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
         //Setting up
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         superDrawDefaultBackground(); //drawWorldBackground(0);
 
         //Title
@@ -202,14 +202,13 @@ public class Gui extends GuiScreen{
             glColor4f(0.5F, 0.5F, 0.5F, 1F);
             lastTime = Minecraft.getSystemTime();
         }
-        System.out.println("ArraySize: " + helper.GuiArray.size());
-        for (int i=0;i<helper.GuiArray.size();i++) {
-            System.out.println("GuiArray: " + helper.GuiArray.get(i));
+        for (int i=0;i<helper.getNameSize();i++) {
+            System.out.println("GuiArray: " + helper.getName(i).toString());
             System.out.println("guiShowType: " + guiShowType);
-            System.out.println("Equal?  " + Objects.equals(helper.GuiArray.get(i).toString(), guiShowType.toString()));
-            if (Objects.equals(helper.GuiArray.get(i).toString(), guiShowType.toString())) {
+            System.out.println("Equal?  " + Objects.equals(helper.getName(i).toString(), guiShowType.toString()));
+            if (Objects.equals(helper.getName(i).toString(), guiShowType.toString())) {
                 System.out.println("FIRST IF");
-                helper.GuiFuncArray.get(i).initGui();
+                helper.getGuiFunc(i).initGui();
                 break;
             }
         }
@@ -218,7 +217,7 @@ public class Gui extends GuiScreen{
         superDrawHorizontalLine(guiShowBasePosX - 86, guiShowBasePosX + 85, guiShowBasePosY + 80, lightGray.getRGB());
 
         // Super
-        drawScreen(mouseX, mouseY, partialTicks);
+        super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -321,7 +320,7 @@ public class Gui extends GuiScreen{
      */
     public void registerGui(String GuiName, Helper.Guis GuiFunc){
         helper.addName(GuiName);
-        helper.addFunc(GuiFunc);
+        helper.addGuiFunc(GuiFunc);
     }
 
 }
