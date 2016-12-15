@@ -1,14 +1,12 @@
 package de.skate702.craftingkeys.api;
 
 
-import com.google.common.collect.Maps;
 import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
@@ -17,7 +15,6 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -49,8 +46,6 @@ public class Gui extends GuiScreen{
     public static final Color pureWhite = new Color(255, 255, 255, 255);
     public static final Color lightGray = new Color(128, 128, 128, 255);
     public static final Color highlight = new Color(86, 144, 72, 255);
-
-    public Minecraft HelperMc = mc;
 
     public void save() {
         Config.keyTopLeft.set(keyValues[0]);
@@ -158,8 +153,14 @@ public class Gui extends GuiScreen{
         DISPENSER
     }
 
+    private void drawCraftingTable() {
+        glColor4f(1F, 1F, 1F, 1F);
+        bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
+        drawTexturedModalRect(guiBasePosition - 86, superHeight / 2 - 100, 1, 0, 174, 80);
+    }
+
     public void bindTexture(ResourceLocation resource) {
-        HelperMc.renderEngine.bindTexture(resource);
+        mc.renderEngine.bindTexture(resource);
     }
 
     public void glColor4f(float one, float two, float three, float four) {
@@ -190,8 +191,7 @@ public class Gui extends GuiScreen{
         // Draw Crafting Table
         glColor4f(1F, 1F, 1F, 1F);
 
-        bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
-        drawTexturedModalRect(guiBasePosition - 86, superHeight / 2 - 100, 1, 0, 174, 80);
+        drawCraftingTable();
 
         // Draw info
         // Insert Gui by selected Type
@@ -248,11 +248,11 @@ public class Gui extends GuiScreen{
     public void actionPerformed(GuiButton button) {
         if (button.id == buttonAbortID) {
             Logger.info("actionPerformed(b)", "Closing Crafting Keys GUI now!");
-            HelperMc.thePlayer.closeScreen();
+            mc.thePlayer.closeScreen();
         } else if (button.id == buttonSaveID) {
             save();
             Logger.info("actionPerformed(b)", "Saving & closing Crafting Keys GUI now!");
-            HelperMc.thePlayer.closeScreen();
+            mc.thePlayer.closeScreen();
         } else if (button.id >= 0 && button.id <= 11) {
             if (selectedButtonID == -1) {
                 selectedButtonID = button.id;
