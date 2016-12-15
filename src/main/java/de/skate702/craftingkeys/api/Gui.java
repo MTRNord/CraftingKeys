@@ -1,12 +1,14 @@
 package de.skate702.craftingkeys.api;
 
 
+import com.google.common.collect.Maps;
 import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
@@ -15,6 +17,7 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -47,7 +50,7 @@ public class Gui extends GuiScreen{
     public static final Color lightGray = new Color(128, 128, 128, 255);
     public static final Color highlight = new Color(86, 144, 72, 255);
 
-    public Minecraft mc;
+    public Minecraft HelperMc = mc;
 
     public void save() {
         Config.keyTopLeft.set(keyValues[0]);
@@ -155,6 +158,14 @@ public class Gui extends GuiScreen{
         DISPENSER
     }
 
+    public void bindTexture(ResourceLocation resource) {
+        HelperMc.renderEngine.bindTexture(resource);
+    }
+
+    public void glColor4f(float one, float two, float three, float four) {
+        GL11.glColor4f(one, two, three, four);
+    }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
@@ -177,8 +188,9 @@ public class Gui extends GuiScreen{
         superDrawHorizontalLine(guiBasePosition - 86, guiBasePosition + 85, superHeight / 2 - 20, pureWhite.getRGB());
 
         // Draw Crafting Table
-        GL11.glColor4f(1F, 1F, 1F, 1F);
-        mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
+        glColor4f(1F, 1F, 1F, 1F);
+
+        bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
         drawTexturedModalRect(guiBasePosition - 86, superHeight / 2 - 100, 1, 0, 174, 80);
 
         // Draw info
@@ -187,7 +199,7 @@ public class Gui extends GuiScreen{
         int waitingTimeMS = 3000;
         if (currentTime - lastTime > waitingTimeMS) {
             showNextGui();
-            GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+            glColor4f(0.5F, 0.5F, 0.5F, 1F);
             lastTime = Minecraft.getSystemTime();
         }
         System.out.println("ArraySize: " + helper.GuiArray.size());
@@ -236,11 +248,11 @@ public class Gui extends GuiScreen{
     public void actionPerformed(GuiButton button) {
         if (button.id == buttonAbortID) {
             Logger.info("actionPerformed(b)", "Closing Crafting Keys GUI now!");
-            mc.thePlayer.closeScreen();
+            HelperMc.thePlayer.closeScreen();
         } else if (button.id == buttonSaveID) {
             save();
             Logger.info("actionPerformed(b)", "Saving & closing Crafting Keys GUI now!");
-            mc.thePlayer.closeScreen();
+            HelperMc.thePlayer.closeScreen();
         } else if (button.id >= 0 && button.id <= 11) {
             if (selectedButtonID == -1) {
                 selectedButtonID = button.id;
@@ -311,4 +323,5 @@ public class Gui extends GuiScreen{
         helper.addName(GuiName);
         helper.addFunc(GuiFunc);
     }
+
 }
