@@ -19,8 +19,21 @@ public class Helper {
         GuiArray.add( newGuiName );
         return true;
     }
-    public boolean addFunc( Helper.Guis newGuiFunc ) {
+
+    public String getName(int i) {
+        return GuiArray.get(i);
+    }
+
+    public int getNameSize() {
+        return GuiArray.size();
+    }
+
+    public boolean addGuiFunc( Helper.Guis newGuiFunc ) {
         GuiFuncArray.add( newGuiFunc );
         return true;
+    }
+
+    public Helper.Guis getGuiFunc(int i) {
+        return GuiFuncArray.get(i);
     }
 }
