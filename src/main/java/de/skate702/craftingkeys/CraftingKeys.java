@@ -3,6 +3,7 @@ package de.skate702.craftingkeys;
 // NEW_1_8 cpw.mods.fml => net.minecraftforge.fml
 
 import de.skate702.craftingkeys.api.Gui;
+import de.skate702.craftingkeys.config.GuiConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -96,6 +97,8 @@ public class CraftingKeys {
     @SuppressWarnings("EmptyMethod")
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        GuiConfig GuiConfig = new GuiConfig();
+        GuiConfig.initDefaults();
     }
 
     @SuppressWarnings("UnusedParameters")
