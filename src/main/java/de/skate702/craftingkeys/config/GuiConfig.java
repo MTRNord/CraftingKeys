@@ -36,19 +36,19 @@ public class GuiConfig {
     }
 
     private void drawCraftingTable() {
-        GL11.glColor4f(1F, 1F, 1F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
+        gui.glColor4f(1F, 1F, 1F, 1F);
+        gui.bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
         gui.drawTexturedModalRect(gui.guiBasePosition - 86, gui.superHeight / 2 - 100, 1, 0, 174, 80);
     }
 
     private void genFurnaceInfo() {
 
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/furnace.png"));
+        gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        gui.bindTexture(new ResourceLocation("textures/gui/container/furnace.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
 
         GL11.glColor4f(1F, 1F, 1F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        gui.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX + 105, gui.guiShowBasePosY + 17, 0, 100, 50, 50);
 
         gui.drawInfoString(1, 63, 21);
@@ -58,12 +58,12 @@ public class GuiConfig {
 
     private void genBrewingStandInfo() {
 
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/brewing_stand.png"));
+        gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        gui.bindTexture(new ResourceLocation("textures/gui/container/brewing_stand.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
 
-        GL11.glColor4f(1F, 1F, 1F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        gui.glColor4f(1F, 1F, 1F, 1F);
+        gui.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX + 105, gui.guiShowBasePosY + 17, 200, 0, 50, 50);
         
         //NEW_1.11
@@ -83,12 +83,12 @@ public class GuiConfig {
 
     private void genEnchantmentInfo() {
 
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
+        gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        gui.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
 
-        GL11.glColor4f(1F, 1F, 1F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        gui.glColor4f(1F, 1F, 1F, 1F);
+        gui.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX + 105, gui.guiShowBasePosY + 17, 150, 50, 50, 50);
 
         //NEW_1.11
@@ -104,14 +104,14 @@ public class GuiConfig {
 
     private void genAnvilInfo() {
 
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/anvil.png"));
+        gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        gui.bindTexture(new ResourceLocation("textures/gui/container/anvil.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
 
         gui.drawRect(gui.guiShowBasePosX + -30, gui.guiShowBasePosY + 17, gui.guiShowBasePosX + 83, gui.guiShowBasePosY + 36, Color.black.getRGB());
 
-        GL11.glColor4f(1F, 1F, 1F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        gui.glColor4f(1F, 1F, 1F, 1F);
+        gui.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX + 105, gui.guiShowBasePosY + 17, 100, 0, 50, 50);
 
         gui.drawInfoString(4, 34, 51);
@@ -121,12 +121,12 @@ public class GuiConfig {
 
     private void genVillagerInfo() {
 
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
+        gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        gui.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
 
-        GL11.glColor4f(1F, 1F, 1F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        gui.glColor4f(1F, 1F, 1F, 1F);
+        gui.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX + 105, gui.guiShowBasePosY + 17, 100, 100, 50, 50);
 
         gui.drawInfoString(4, 43, 57);
@@ -136,12 +136,12 @@ public class GuiConfig {
 
     private void genInventoryInfo() {
 
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
+        gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        gui.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
 
-        GL11.glColor4f(1F, 1F, 1F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        gui.glColor4f(1F, 1F, 1F, 1F);
+        gui.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX + 105, gui.guiShowBasePosY + 17, 0, 0, 50, 50);
 
         gui.drawInfoString(1, 105, 22); //W
@@ -153,12 +153,12 @@ public class GuiConfig {
 
     private void genDispenserInfo() {
 
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
+        gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        gui.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
 
-        GL11.glColor4f(1F, 1F, 1F, 1F);
-        gui.mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        gui.glColor4f(1F, 1F, 1F, 1F);
+        gui.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX + 105, gui.guiShowBasePosY + 17, 50, 50, 50, 50);
 
         gui.drawInfoString(0, 69, 21);
