@@ -12,7 +12,7 @@ import java.awt.*;
 
 @SuppressWarnings("NewExpressionSideOnly")
 public class GuiConfig{
-    public Gui gui = new Gui();
+    Gui gui = Gui.getInstance();
 
 
 
@@ -37,7 +37,7 @@ public class GuiConfig{
     }
 
     private void genFurnaceInfo() {
-        Gui gui = new Gui();
+        Gui gui = Gui.getInstance();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/furnace.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -52,7 +52,7 @@ public class GuiConfig{
     }
 
     private void genBrewingStandInfo() {
-        Gui gui = new Gui();
+        Gui gui = Gui.getInstance();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/brewing_stand.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -77,7 +77,7 @@ public class GuiConfig{
     }
 
     private void genEnchantmentInfo() {
-        Gui gui = new Gui();
+        Gui gui = Gui.getInstance();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -98,7 +98,7 @@ public class GuiConfig{
 
 
     private void genAnvilInfo() {
-        Gui gui = new Gui();
+        Gui gui = Gui.getInstance();
 
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/anvil.png"));
@@ -116,7 +116,7 @@ public class GuiConfig{
     }
 
     private void genVillagerInfo() {
-        Gui gui = new Gui();
+        Gui gui = Gui.getInstance();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -131,7 +131,7 @@ public class GuiConfig{
     }
 
     private void genInventoryInfo() {
-        Gui gui = new Gui();
+        Gui gui = Gui.getInstance();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -148,7 +148,7 @@ public class GuiConfig{
     }
 
     private void genDispenserInfo() {
-        Gui gui = new Gui();
+        Gui gui = Gui.getInstance();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
