@@ -10,12 +10,14 @@ public class Helper {
 
     private ArrayList<String> GuiArray;
     private ArrayList<Helper.Guis> GuiFuncArray;
+    private ArrayList<String> GuiType;
 
     private static Helper instance;
 
     private Helper(){
         GuiArray = new ArrayList<String>();
         GuiFuncArray = new ArrayList<Guis>();
+        GuiType = new ArrayList<String>();
     }
 
     public static Helper getInstance(){
@@ -27,6 +29,27 @@ public class Helper {
 
     public interface Guis {
         void configureGui();
+    }
+
+    public boolean addGuiType( String newGuiType ) {
+        GuiType.add( newGuiType );
+        return true;
+    }
+
+    public ArrayList<String> getGuiTypeArray() {
+        return GuiType;
+    }
+
+    public static String getGuiType(int i) {
+        return getInstance().getGuiTypeArray().get(i);
+    }
+
+    public static int getGuiTypeSize() {
+        return getInstance().getGuiTypeArray().size();
+    }
+
+    public static String getNextGuiType(int i) {
+        return getInstance().getGuiArray().get(i + 1);
     }
 
     public boolean addName( String newGuiName ) {
