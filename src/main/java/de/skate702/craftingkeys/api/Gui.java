@@ -37,15 +37,12 @@ public class Gui extends GuiScreen{
         return instance;
     }
 
-    public Minecraft superMc = Minecraft.getMinecraft();
     Helper helper = Helper.getInstance();
 
     public int selectedButtonID = -1;
     public static final int GuiID = 702;
 
     public List<GuiButton> superButtonList = buttonList;
-    public int superWidth = width;
-    public int superHeight = height;
     public int[] keyValues = new int[]{};
     public int guiBasePosition;
     public int guiShowBasePosX;
@@ -99,8 +96,8 @@ public class Gui extends GuiScreen{
 
     private void addStandardButtons() {
         // Add control buttons
-        superButtonList.add((new GuiButton(buttonAbortID, superWidth - 53, 3, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.abort"))));
-        superButtonList.add((new GuiButton(buttonSaveID, superWidth - 53, 26, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.save"))));
+        superButtonList.add((new GuiButton(buttonAbortID, width - 53, 3, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.abort"))));
+        superButtonList.add((new GuiButton(buttonSaveID, width - 53, 26, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.save"))));
     }
 
     public void drawKeyValues() {
@@ -172,11 +169,11 @@ public class Gui extends GuiScreen{
     private void drawCraftingTable() {
         glColor4f(1F, 1F, 1F, 1F);
         bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
-        drawTexturedModalRect(guiBasePosition - 86, superHeight / 2 - 100, 1, 0, 174, 80);
+        drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
     }
 
     public void bindTexture(ResourceLocation resource) {
-        superMc.renderEngine.bindTexture(resource);
+        mc.renderEngine.bindTexture(resource);
     }
 
     public void glColor4f(float one, float two, float three, float four) {
@@ -202,7 +199,7 @@ public class Gui extends GuiScreen{
         superDrawCenteredString(LanguageLocalizer.localize("craftingkeys.config.drop"), guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
 
         //Draw line to let it look better
-        superDrawHorizontalLine(guiBasePosition - 86, guiBasePosition + 85, superHeight / 2 - 20, pureWhite.getRGB());
+        superDrawHorizontalLine(guiBasePosition - 86, guiBasePosition + 85, height / 2 - 20, pureWhite.getRGB());
 
         // Draw Crafting Table
         glColor4f(1F, 1F, 1F, 1F);
@@ -259,11 +256,11 @@ public class Gui extends GuiScreen{
     public void actionPerformed(GuiButton button) {
         if (button.id == buttonAbortID) {
             Logger.info("actionPerformed(b)", "Closing Crafting Keys GUI now!");
-            superMc.thePlayer.closeScreen();
+            mc.thePlayer.closeScreen();
         } else if (button.id == buttonSaveID) {
             save();
             Logger.info("actionPerformed(b)", "Saving & closing Crafting Keys GUI now!");
-            superMc.thePlayer.closeScreen();
+            mc.thePlayer.closeScreen();
         } else if (button.id >= 0 && button.id <= 11) {
             if (selectedButtonID == -1) {
                 selectedButtonID = button.id;
