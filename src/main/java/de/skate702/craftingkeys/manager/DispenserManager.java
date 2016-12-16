@@ -61,6 +61,6 @@ public class DispenserManager extends ContainerManager {
 
     @Override
     protected void interact() {
-
+        //Nothing to interact
     }
 }

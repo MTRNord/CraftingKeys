@@ -94,7 +94,6 @@ public class CraftingKeys {
      *
      * @param event Input Event from FML
      */
-    @SuppressWarnings("EmptyMethod")
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         GuiConfig GuiConfig = new GuiConfig();
@@ -120,7 +119,7 @@ public class CraftingKeys {
      */
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-        if (eventArgs.modID.equals(MODID)) { // NEW_1_9 modID => getModID()
+        if (eventArgs.getModID().equals(MODID)) { // NEW_1_9 modID => getModID()
             Config.syncConfig();
             Logger.info("onConfigChanged(e)", "Changed config.");
         }

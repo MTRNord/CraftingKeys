@@ -2,7 +2,7 @@ package de.skate702.craftingkeys.config;
 
 // NEW_1_8 cpw.mods.fml => net.minecraftforge.fml
 
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import de.skate702.craftingkeys.CraftingKeys;
 import de.skate702.craftingkeys.util.Logger;
 import net.minecraftforge.common.config.Configuration;
@@ -32,7 +32,7 @@ public class Config {
     /**
      * Defines all 11 Keys you can use with Crafting Keys.
      */
-    static Property keyTopLeft, keyTopCenter, keyTopRight,
+    public static Property keyTopLeft, keyTopCenter, keyTopRight,
             keyCenterLeft, keyCenterCenter, keyCenterRight,
             keyLowerLeft, keyLowerCenter, keyLowerRight,
             keyStack, keyInteract, keyDrop;

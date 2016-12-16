@@ -24,7 +24,6 @@ public class GuiConfig {
      * 11    = drop
      */
 
-
     public void initDefaults(){
         gui.registerGui("FURNANCE", new Helper.Guis() {public void initGui() {genFurnaceInfo();}});
         gui.registerGui("BREWINGSTAND", new Helper.Guis() {public void initGui() {genBrewingStandInfo();}});

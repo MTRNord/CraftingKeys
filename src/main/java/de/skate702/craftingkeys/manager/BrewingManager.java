@@ -62,6 +62,6 @@ public class BrewingManager extends ContainerManager {
 
     @Override
     protected void interact() {
-
+        //nothing to interact with
     }
 }
