@@ -25,8 +25,19 @@ import java.util.Objects;
 @SuppressWarnings("Since15")
 public class Gui extends GuiScreen{
 
+    private static Gui instance;
+
+    private Gui(){
+    }
+
+    public static Gui getInstance(){
+        if (instance == null){
+            instance = new Gui();
+        }
+        return instance;
+    }
+
     public Minecraft superMc = Minecraft.getMinecraft();
-    //public Helper helper = new Helper();
     Helper helper = Helper.getInstance();
 
     public int selectedButtonID = -1;
@@ -180,15 +191,15 @@ public class Gui extends GuiScreen{
         drawDefaultBackground(); //drawWorldBackground(0);
 
         //Title
-        superDrawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.title"), width / 2, width / 2 - 115, pureWhite.getRGB());
+        superDrawCenteredString(LanguageLocalizer.localize("craftingkeys.config.title"), width / 2, width / 2 - 115, pureWhite.getRGB());
 
         // Info-text and fake line
-        superDrawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.description"), width/ 2, width / 2 - 10, pureWhite.getRGB());
-        superDrawCenteredString(fontRendererObj, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
+        superDrawCenteredString(LanguageLocalizer.localize("craftingkeys.config.description"), width/ 2, width / 2 - 10, pureWhite.getRGB());
+        superDrawCenteredString("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
 
         // Key Info
-        superDrawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.stack"), guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
-        superDrawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.drop"), guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
+        superDrawCenteredString(LanguageLocalizer.localize("craftingkeys.config.stack"), guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
+        superDrawCenteredString(LanguageLocalizer.localize("craftingkeys.config.drop"), guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
 
         //Draw line to let it look better
         superDrawHorizontalLine(guiBasePosition - 86, guiBasePosition + 85, superHeight / 2 - 20, pureWhite.getRGB());
@@ -297,27 +308,13 @@ public class Gui extends GuiScreen{
     }
 
 
-    public void superDrawCenteredString(FontRenderer fontRendererObj, String text, int width, int height, int color) {
+    public void superDrawCenteredString(String text, int width, int height, int color) {
         drawCenteredString(fontRendererObj, text, width, height, color);
     }
 
     public void drawInfoString(int index, int posX, int posY) {
-        if (keyValues.length == 0) {
-            keyValues = new int[]{
-                    Config.keyTopLeft.getInt(),      // 0
-                    Config.keyTopCenter.getInt(),    // 1
-                    Config.keyTopRight.getInt(),     // 2
-                    Config.keyCenterLeft.getInt(),   // 3
-                    Config.keyCenterCenter.getInt(), // 4
-                    Config.keyCenterRight.getInt(),  // 5
-                    Config.keyLowerLeft.getInt(),    // 6
-                    Config.keyLowerCenter.getInt(),  // 7
-                    Config.keyLowerRight.getInt(),   // 8
-                    Config.keyInteract.getInt(),     // 9
-                    Config.keyStack.getInt(),        // 10
-                    Config.keyDrop.getInt()};        // 11
-        }
-        superDrawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[index]),
+        initKeyValues();
+        superDrawCenteredString(Keyboard.getKeyName(keyValues[index]),
             guiShowBasePosX + posX - 86, guiShowBasePosY + posY, highlight.getRGB());
     }
 
