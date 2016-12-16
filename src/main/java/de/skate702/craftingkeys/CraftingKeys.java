@@ -2,21 +2,22 @@ package de.skate702.craftingkeys;
 
 // NEW_1_8 cpw.mods.fml => net.minecraftforge.fml
 
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import de.skate702.craftingkeys.config.Config;
+import de.skate702.craftingkeys.api.Gui;
 import de.skate702.craftingkeys.config.GuiConfig;
+import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.config.GuiConfigHandler;
 import de.skate702.craftingkeys.config.KeyBindings;
 import de.skate702.craftingkeys.manager.*;
@@ -30,6 +31,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
+
 
 /**
  * The Main Class of the Mod with the important onTick-Method. Some Methods are
@@ -94,7 +96,8 @@ public class CraftingKeys {
      */
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        //Nothing to Init here
+        GuiConfig GuiConfig = new GuiConfig();
+        GuiConfig.initDefaults();
     }
 
     @SuppressWarnings("UnusedParameters")
@@ -102,7 +105,7 @@ public class CraftingKeys {
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (KeyBindings.openGuiBinding.isPressed()) {
             Logger.info("onKeyInput(e)", "Open Crafting Keys Config Gui.");
-            Util.client.thePlayer.openGui(instance, GuiConfig.GuiID, Util.client.theWorld,
+            Util.client.thePlayer.openGui(instance, Gui.GuiID, Util.client.theWorld,
                     ((int) Util.client.thePlayer.posX), (int) Util.client.thePlayer.posY,
                     (int) Util.client.thePlayer.posZ);
         }
