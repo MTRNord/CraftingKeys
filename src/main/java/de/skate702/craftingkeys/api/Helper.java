@@ -8,11 +8,25 @@ import java.util.ArrayList;
  */
 public class Helper {
 
-    public ArrayList<String> GuiArray = new ArrayList<String>();
-    public ArrayList<Helper.Guis>  GuiFuncArray = new ArrayList<Helper.Guis>();
+    private ArrayList<String> GuiArray;
+    private ArrayList<Helper.Guis> GuiFuncArray;
+
+    private static Helper instance;
+
+    private Helper(){
+        GuiArray = new ArrayList<String>();
+        GuiFuncArray = new ArrayList<Guis>();
+    }
+
+    public static Helper getInstance(){
+        if (instance == null){
+            instance = new Helper();
+        }
+        return instance;
+    }
 
     public interface Guis {
-        void initGui();
+        void configureGui();
     }
 
     public boolean addName( String newGuiName ) {
@@ -20,20 +34,28 @@ public class Helper {
         return true;
     }
 
-    public String getName(int i) {
-        return GuiArray.get(i);
+    public ArrayList<String> getGuiArray() {
+        return GuiArray;
     }
 
-    public int getNameSize() {
-        return GuiArray.size();
+    public ArrayList<Guis> getGuiFuncArray() {
+        return GuiFuncArray;
     }
 
-    public boolean addGuiFunc( Helper.Guis newGuiFunc ) {
-        GuiFuncArray.add( newGuiFunc );
+    public static String getName(int i) {
+        return getInstance().getGuiArray().get(i);
+    }
+
+    public static int getNameSize() {
+        return getInstance().getGuiArray().size();
+    }
+
+    public static boolean addGuiFunc( Helper.Guis newGuiFunc ) {
+        getInstance().getGuiFuncArray().add( newGuiFunc );
         return true;
     }
 
-    public Helper.Guis getGuiFunc(int i) {
-        return GuiFuncArray.get(i);
+    public static Guis getGuiFunc(int i) {
+        return getInstance().getGuiFuncArray().get(i);
     }
 }
