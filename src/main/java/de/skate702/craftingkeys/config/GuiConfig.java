@@ -3,6 +3,7 @@ package de.skate702.craftingkeys.config;
 import de.skate702.craftingkeys.CraftingKeys;
 import de.skate702.craftingkeys.api.Gui;
 import de.skate702.craftingkeys.api.Helper;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
@@ -10,7 +11,7 @@ import java.awt.*;
 
 
 @SuppressWarnings("NewExpressionSideOnly")
-public class GuiConfig {
+public class GuiConfig{
     public Gui gui = new Gui();
 
 
@@ -24,24 +25,19 @@ public class GuiConfig {
      * 11    = drop
      */
 
-    public void initDefaults(){
-        gui.registerGui("FURNANCE", new Helper.Guis() {public void initGui() {genFurnaceInfo();}});
-        gui.registerGui("BREWINGSTAND", new Helper.Guis() {public void initGui() {genBrewingStandInfo();}});
-        gui.registerGui("DISPENSER",new Helper.Guis() {public void initGui() {genDispenserInfo();}});
-        gui.registerGui("ENCHANTMENT", new Helper.Guis() {public void initGui() {genEnchantmentInfo();}});
-        gui.registerGui("INVENTORY", new Helper.Guis() {public void initGui() {genInventoryInfo();}});
-        gui.registerGui("VILLAGER", new Helper.Guis() {public void initGui() {genVillagerInfo();}});
-        gui.registerGui("ANVIL", new Helper.Guis() {public void initGui() {genAnvilInfo();}});
-    }
 
-    private void drawCraftingTable() {
-        gui.glColor4f(1F, 1F, 1F, 1F);
-        gui.bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
-        gui.drawTexturedModalRect(gui.guiBasePosition - 86, gui.superHeight / 2 - 100, 1, 0, 174, 80);
+    public void initDefaults(){
+        gui.registerGui("FURNANCE", new Helper.Guis() { public void configureGui() {genFurnaceInfo();}});
+        gui.registerGui("BREWINGSTAND", new Helper.Guis() {public void configureGui() {genBrewingStandInfo();}});
+        gui.registerGui("DISPENSER",new Helper.Guis() {public void configureGui() {genDispenserInfo();}});
+        gui.registerGui("ENCHANTMENT", new Helper.Guis() {public void configureGui() {genEnchantmentInfo();}});
+        gui.registerGui("INVENTORY", new Helper.Guis() {public void configureGui() {genInventoryInfo();}});
+        gui.registerGui("VILLAGER", new Helper.Guis() {public void configureGui() {genVillagerInfo();}});
+        gui.registerGui("ANVIL", new Helper.Guis() {public void configureGui() {genAnvilInfo();}});
     }
 
     private void genFurnaceInfo() {
-
+        Gui gui = new Gui();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/furnace.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -56,7 +52,7 @@ public class GuiConfig {
     }
 
     private void genBrewingStandInfo() {
-
+        Gui gui = new Gui();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/brewing_stand.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -64,7 +60,7 @@ public class GuiConfig {
         gui.glColor4f(1F, 1F, 1F, 1F);
         gui.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX + 105, gui.guiShowBasePosY + 17, 200, 0, 50, 50);
-        
+
         //NEW_1.11
 
         gui.drawInfoString(0, 24, 21);
@@ -81,7 +77,7 @@ public class GuiConfig {
     }
 
     private void genEnchantmentInfo() {
-
+        Gui gui = new Gui();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -95,13 +91,14 @@ public class GuiConfig {
         gui.drawInfoString(1, 22, 51);
         gui.drawInfoString(2, 42, 51);
 
-        
+
         //gui.drawInfoString(1, 32, 51);
         // NEW_1_8 gui.drawInfoString(2, 42, 51);
     }
 
 
     private void genAnvilInfo() {
+        Gui gui = new Gui();
 
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/anvil.png"));
@@ -119,7 +116,7 @@ public class GuiConfig {
     }
 
     private void genVillagerInfo() {
-
+        Gui gui = new Gui();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -134,7 +131,7 @@ public class GuiConfig {
     }
 
     private void genInventoryInfo() {
-
+        Gui gui = new Gui();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
@@ -151,7 +148,7 @@ public class GuiConfig {
     }
 
     private void genDispenserInfo() {
-
+        Gui gui = new Gui();
         gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         gui.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
         gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
