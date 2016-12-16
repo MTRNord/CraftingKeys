@@ -5,6 +5,7 @@ import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -21,8 +22,12 @@ import java.util.Objects;
 /**
  * Created by Marcel on 15.12.2016.
  */
+@SuppressWarnings("Since15")
 public class Gui extends GuiScreen{
-    public Helper helper = new Helper();
+
+    public Minecraft superMc = Minecraft.getMinecraft();
+    //public Helper helper = new Helper();
+    Helper helper = Helper.getInstance();
 
     public int selectedButtonID = -1;
     public static final int GuiID = 702;
@@ -160,7 +165,7 @@ public class Gui extends GuiScreen{
     }
 
     public void bindTexture(ResourceLocation resource) {
-        mc.renderEngine.bindTexture(resource);
+        superMc.renderEngine.bindTexture(resource);
     }
 
     public void glColor4f(float one, float two, float three, float four) {
@@ -172,18 +177,18 @@ public class Gui extends GuiScreen{
 
         //Setting up
         glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        superDrawDefaultBackground(); //drawWorldBackground(0);
+        drawDefaultBackground(); //drawWorldBackground(0);
 
         //Title
-        drawCenteredString(LanguageLocalizer.localize("craftingkeys.config.title"), width / 2, width / 2 - 115, pureWhite.getRGB());
+        superDrawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.title"), width / 2, width / 2 - 115, pureWhite.getRGB());
 
         // Info-text and fake line
-        drawCenteredString(LanguageLocalizer.localize("craftingkeys.config.description"), width/ 2, width / 2 - 10, pureWhite.getRGB());
-        drawCenteredString("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
+        superDrawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.description"), width/ 2, width / 2 - 10, pureWhite.getRGB());
+        superDrawCenteredString(fontRendererObj, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
 
         // Key Info
-        drawCenteredString(LanguageLocalizer.localize("craftingkeys.config.stack"), guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
-        drawCenteredString(LanguageLocalizer.localize("craftingkeys.config.drop"), guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
+        superDrawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.stack"), guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
+        superDrawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.drop"), guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
 
         //Draw line to let it look better
         superDrawHorizontalLine(guiBasePosition - 86, guiBasePosition + 85, superHeight / 2 - 20, pureWhite.getRGB());
@@ -203,12 +208,8 @@ public class Gui extends GuiScreen{
             lastTime = Minecraft.getSystemTime();
         }
         for (int i=0;i<helper.getNameSize();i++) {
-            System.out.println("GuiArray: " + helper.getName(i).toString());
-            System.out.println("guiShowType: " + guiShowType);
-            System.out.println("Equal?  " + Objects.equals(helper.getName(i).toString(), guiShowType.toString()));
             if (Objects.equals(helper.getName(i).toString(), guiShowType.toString())) {
-                System.out.println("FIRST IF");
-                helper.getGuiFunc(i).initGui();
+                helper.getGuiFunc(i).configureGui();
                 break;
             }
         }
@@ -247,11 +248,11 @@ public class Gui extends GuiScreen{
     public void actionPerformed(GuiButton button) {
         if (button.id == buttonAbortID) {
             Logger.info("actionPerformed(b)", "Closing Crafting Keys GUI now!");
-            mc.thePlayer.closeScreen();
+            superMc.thePlayer.closeScreen();
         } else if (button.id == buttonSaveID) {
             save();
             Logger.info("actionPerformed(b)", "Saving & closing Crafting Keys GUI now!");
-            mc.thePlayer.closeScreen();
+            superMc.thePlayer.closeScreen();
         } else if (button.id >= 0 && button.id <= 11) {
             if (selectedButtonID == -1) {
                 selectedButtonID = button.id;
@@ -296,16 +297,27 @@ public class Gui extends GuiScreen{
     }
 
 
-    public void superDrawDefaultBackground() {
-        drawDefaultBackground();
-    }
-
-    public void drawCenteredString(String text, int width, int height, int color) {
+    public void superDrawCenteredString(FontRenderer fontRendererObj, String text, int width, int height, int color) {
         drawCenteredString(fontRendererObj, text, width, height, color);
     }
 
     public void drawInfoString(int index, int posX, int posY) {
-        drawCenteredString(Keyboard.getKeyName(keyValues[index]),
+        if (keyValues.length == 0) {
+            keyValues = new int[]{
+                    Config.keyTopLeft.getInt(),      // 0
+                    Config.keyTopCenter.getInt(),    // 1
+                    Config.keyTopRight.getInt(),     // 2
+                    Config.keyCenterLeft.getInt(),   // 3
+                    Config.keyCenterCenter.getInt(), // 4
+                    Config.keyCenterRight.getInt(),  // 5
+                    Config.keyLowerLeft.getInt(),    // 6
+                    Config.keyLowerCenter.getInt(),  // 7
+                    Config.keyLowerRight.getInt(),   // 8
+                    Config.keyInteract.getInt(),     // 9
+                    Config.keyStack.getInt(),        // 10
+                    Config.keyDrop.getInt()};        // 11
+        }
+        superDrawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[index]),
             guiShowBasePosX + posX - 86, guiShowBasePosY + posY, highlight.getRGB());
     }
 
