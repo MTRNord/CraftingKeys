@@ -46,7 +46,7 @@ public class Gui extends GuiScreen{
     public int guiBasePosition;
     public int guiShowBasePosX;
     public int guiShowBasePosY;
-    public GuiType guiShowType;
+    public String guiShowType;
     public int guiShowState;
     public long lastTime = 0;
     public long currentTime;
@@ -124,45 +124,20 @@ public class Gui extends GuiScreen{
     }
 
     private void showNextGui() {
-        switch (guiShowState) {
-            case 0:
-                guiShowType = GuiType.FURNACE;
-                break;
-            case 1:
-                guiShowType = GuiType.BREWINGSTAND;
-                break;
-            case 2:
-                guiShowType = GuiType.INVENTORY;
-                break;
-            case 3:
-                guiShowType = GuiType.ENCHANTMENT;
-                break;
-            case 4:
-                guiShowType = GuiType.DISPENSER;
-                break;
-            case 5:
-                guiShowType = GuiType.VILLAGER;
-                break;
-            case 6:
-                guiShowType = GuiType.ANVIL;
-                break;
+        for (int i=0;i<helper.getGuiTypeSize();i++) {
+            if (guiShowState==i) {
+                if (guiShowState == helper.getGuiTypeSize()-1) {
+                    guiShowType = helper.getGuiType(0);
+                } else {
+                    guiShowType = helper.getNextGuiType(guiShowState);
+                }
+            }
         }
-        if (guiShowState >= 6) {
+        if (guiShowState == helper.getGuiTypeSize()-1) {
             guiShowState = 0;
         } else {
             guiShowState++;
         }
-
-    }
-
-    public enum GuiType {
-        ANVIL,
-        FURNACE,
-        BREWINGSTAND,
-        ENCHANTMENT,
-        INVENTORY,
-        VILLAGER,
-        DISPENSER
     }
 
     private void drawCraftingTable() {
@@ -237,7 +212,7 @@ public class Gui extends GuiScreen{
         guiShowBasePosX = width / 2 - 35;
         guiShowBasePosY = height / 2 + 25;
 
-        guiShowType = GuiType.ANVIL;
+        guiShowType = helper.getGuiType(0);
         guiShowState = 0;
         lastTime = Minecraft.getSystemTime();
         currentTime = Minecraft.getSystemTime();
@@ -309,6 +284,7 @@ public class Gui extends GuiScreen{
      */
     public void registerGui(String GuiName, Helper.Guis GuiFunc){
         helper.addName(GuiName);
+        helper.addGuiType(GuiName);
         helper.addGuiFunc(GuiFunc);
     }
 
