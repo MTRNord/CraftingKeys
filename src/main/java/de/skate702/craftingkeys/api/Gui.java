@@ -42,7 +42,6 @@ public class Gui extends GuiScreen{
     public int selectedButtonID = -1;
     public static final int GuiID = 702;
 
-    public List<GuiButton> superButtonList = buttonList;
     public int[] keyValues = new int[]{};
     public int guiBasePosition;
     public int guiShowBasePosX;
@@ -96,8 +95,8 @@ public class Gui extends GuiScreen{
 
     private void addStandardButtons() {
         // Add control buttons
-        superButtonList.add((new GuiButton(buttonAbortID, width - 53, 3, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.abort"))));
-        superButtonList.add((new GuiButton(buttonSaveID, width - 53, 26, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.save"))));
+        buttonList.add((new GuiButton(buttonAbortID, width - 53, 3, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.abort"))));
+        buttonList.add((new GuiButton(buttonSaveID, width - 53, 26, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.save"))));
     }
 
     public void drawKeyValues() {
@@ -188,18 +187,18 @@ public class Gui extends GuiScreen{
         drawDefaultBackground(); //drawWorldBackground(0);
 
         //Title
-        superDrawCenteredString(LanguageLocalizer.localize("craftingkeys.config.title"), width / 2, width / 2 - 115, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.title"), width / 2, height / 2 - 115, pureWhite.getRGB());
 
         // Info-text and fake line
-        superDrawCenteredString(LanguageLocalizer.localize("craftingkeys.config.description"), width/ 2, width / 2 - 10, pureWhite.getRGB());
-        superDrawCenteredString("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
+        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.description"), width/ 2, height / 2 - 10, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
 
         // Key Info
-        superDrawCenteredString(LanguageLocalizer.localize("craftingkeys.config.stack"), guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
-        superDrawCenteredString(LanguageLocalizer.localize("craftingkeys.config.drop"), guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.stack"), guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.drop"), guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
 
         //Draw line to let it look better
-        superDrawHorizontalLine(guiBasePosition - 86, guiBasePosition + 85, height / 2 - 20, pureWhite.getRGB());
+        drawHorizontalLine(guiBasePosition - 86, guiBasePosition + 85, height / 2 - 20, pureWhite.getRGB());
 
         // Draw Crafting Table
         glColor4f(1F, 1F, 1F, 1F);
@@ -223,7 +222,7 @@ public class Gui extends GuiScreen{
         }
 
         //Draw line to let it look better
-        superDrawHorizontalLine(guiShowBasePosX - 86, guiShowBasePosX + 85, guiShowBasePosY + 80, lightGray.getRGB());
+        drawHorizontalLine(guiShowBasePosX - 86, guiShowBasePosX + 85, guiShowBasePosY + 80, lightGray.getRGB());
 
         // Super
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -277,7 +276,11 @@ public class Gui extends GuiScreen{
                 drawKeyValues();
             } else {
                 Logger.info("keyTyped(c,i)", "Trying to close inventory with esc.");
-                superKeyTyped(character, keyCode);
+                try {
+                    super.keyTyped(character, keyCode); // Enable standard gui closing
+                } catch (Exception ignored) {
+                    // support for newer versions, just do nothing
+                }
             }
 
         } else if (selectedButtonID != -1) {
@@ -289,29 +292,9 @@ public class Gui extends GuiScreen{
         }
     }
 
-    public void superDrawHorizontalLine(int startX, int endX, int y, int color) {
-        drawHorizontalLine(startX, endX, y, color);
-    }
-
-
-    // Super
-    public void superKeyTyped(char typedChar, int keyCode){
-        try {
-            super.keyTyped(typedChar, keyCode); // Enable standard gui closing
-        } catch (Exception ignored) {
-            // support for newer versions, just do nothing
-        }
-
-    }
-
-
-    public void superDrawCenteredString(String text, int width, int height, int color) {
-        drawCenteredString(fontRendererObj, text, width, height, color);
-    }
-
     public void drawInfoString(int index, int posX, int posY) {
         initKeyValues();
-        superDrawCenteredString(Keyboard.getKeyName(keyValues[index]),
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[index]),
             guiShowBasePosX + posX - 86, guiShowBasePosY + posY, highlight.getRGB());
     }
 
