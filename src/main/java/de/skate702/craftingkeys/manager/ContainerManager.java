@@ -25,14 +25,15 @@ public abstract class ContainerManager {
     /**
      * The Container to work with.
      */
-    Container container;
+    public Container container;
+
 
     /**
      * Creates a new ContainerManager with the given container.
      *
      * @param container The container to work with
      */
-    ContainerManager(Container container) {
+    protected ContainerManager(Container container) {
         this.container = container;
     }
 
@@ -84,7 +85,8 @@ public abstract class ContainerManager {
     /**
      * Handles what to do when the DropKey is pressed in acceptKey().
      */
-    public void onDropKeyPressed() {
+    @SuppressWarnings("WeakerAccess")
+    void onDropKeyPressed() {
 
         // Drop every defined dropSlot-Item
         for (int i : getDropSlots()) {
@@ -196,9 +198,12 @@ public abstract class ContainerManager {
 
         // If no stack is held and a num-key is pressed, get the output by interaction, but only
         // if there could not be meant another stack at mouse position. cool logic!
-        if (!Util.isHoldingStack() && currentHoveredSlot == null || !currentHoveredSlot.getHasStack()) {
-            Logger.info("handleNumKey()", "Trying output to hotbar speedup.");
-            onInteractionKeyPressed();
+        if (!Util.isHoldingStack()) {
+
+            if (currentHoveredSlot == null || !currentHoveredSlot.getHasStack()) {
+                Logger.info("handleNumKey()", "Trying output to hotbar speedup.");
+                onInteractionKeyPressed();
+            }
         }
 
         // If held, move!
@@ -240,9 +245,9 @@ public abstract class ContainerManager {
      * @param lowerRight   lower-right slot index
      * @return a slot index. wow!
      */
-    int mapKeyToSlot(int topLeft, int topCenter, int topRight,
-                     int centerLeft, int centerCenter, int centerRight,
-                     int lowerLeft, int lowerCenter, int lowerRight) {
+    protected int mapKeyToSlot(int topLeft, int topCenter, int topRight,
+                               int centerLeft, int centerCenter, int centerRight,
+                               int lowerLeft, int lowerCenter, int lowerRight) {
 
         if (Config.isKeyTopLeftPressed()) {
             return topLeft;
@@ -298,7 +303,7 @@ public abstract class ContainerManager {
      * @param destIndex The Destination Slot Index of the Container
      * @param amount    The amount of items to move (can be bigger then Stack Size)
      */
-    public void move(int srcIndex, int destIndex, int amount) {
+    void move(int srcIndex, int destIndex, int amount) {
 
         // Stacks
         ItemStack source = getItemStack(srcIndex);
@@ -350,7 +355,7 @@ public abstract class ContainerManager {
      * @param index The index of the slot in the container
      * @return Returns the ItemStack
      */
-    public ItemStack getItemStack(int index) {
+    ItemStack getItemStack(int index) {
 
         if (index >= 0 && index < container.inventorySlots.size()) {
 
@@ -382,7 +387,7 @@ public abstract class ContainerManager {
      *
      * @param sourceIndex A slot index of the source items
      */
-    public void moveStackToInventory(int sourceIndex) {
+    void moveStackToInventory(int sourceIndex) {
 
         // Moving Stack
         ItemStack stackToMove = null;
@@ -440,8 +445,12 @@ public abstract class ContainerManager {
 
             ItemStack potentialGoalStack = getItemStack(i);
 
-            if (potentialGoalStack != null && stackToMove != null && potentialGoalStack.isItemEqual(stackToMove) && potentialGoalStack.func_190916_E() + stackToMove.func_190916_E() <= stackToMove.getMaxStackSize()) {
-                return i;
+            if (potentialGoalStack != null && stackToMove != null) {
+                if (potentialGoalStack.isItemEqual(stackToMove)) {
+                    if (potentialGoalStack.func_190916_E() + stackToMove.func_190916_E() <= stackToMove.getMaxStackSize()) {
+                        return i;
+                    }
+                }
             }
         }
 
@@ -475,7 +484,7 @@ public abstract class ContainerManager {
      *
      * @param index The index of the slot in the container
      */
-    void leftClick(int index) {
+    protected void leftClick(int index) {
         slotClick(index, false);
     }
 
