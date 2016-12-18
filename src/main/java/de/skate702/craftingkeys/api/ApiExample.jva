@@ -1,0 +1,101 @@
+package de.skate702.craftingkeys.api;
+
+
+import de.skate702.craftingkeys.CraftingKeys;
+import de.skate702.craftingkeys.util.Logger;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
+
+/**
+ * Created by Marcel on 15.12.2016.
+ */
+
+public class APITest extends Api {
+    private static APITest instance = null;
+    Gui gui = Gui.getInstance();
+
+    /**
+     * Creates a new ContainerManager with the given container.
+     *
+     * @param container
+     */
+    private APITest(Container container) {
+        super(container);
+    }
+
+    @Override
+    public void registerGui(String name) {
+        super.registerGui(name);
+    }
+
+    @Override
+    public void initGui() {
+        Gui gui = Gui.getInstance();
+        gui.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        gui.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
+        gui.drawTexturedModalRect(gui.guiShowBasePosX - 86, gui.guiShowBasePosY, 1, 0, 174, 80);
+
+        gui.glColor4f(1F, 1F, 1F, 1F);
+        gui.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        gui.drawTexturedModalRect(gui.guiShowBasePosX + 105, gui.guiShowBasePosY + 17, 0, 0, 50, 50);
+
+        gui.drawInfoString(1, 105, 22); //W
+        gui.drawInfoString(2, 123, 22); //E
+        gui.drawInfoString(4, 105, 40); //S
+        gui.drawInfoString(5, 123, 40); //D
+        gui.drawInfoString(9, 164, 32); //LCTRL
+    }
+
+
+    /**
+     * Returns a Inventory Manager Instance operating on the given container
+     *
+     * @param container A container from a GUI
+     * @return manager-singleton
+     */
+    public static APITest getInstance(Container container) {
+        if (instance == null) {
+            instance = new APITest(container);
+        } else {
+            instance.container = container;
+        }
+        return instance;
+    }
+
+    @Override
+    protected int specificKeyToSlotIndex() {
+
+        return mapKeyToSlot(-1, 1, 2, 45, 3, 4, 45, -1, -1);
+        // NEW_1_9 return mapKeyToSlot(-1, 1, 2, 45, 3, 4, 45, -1, -1);
+    }
+
+    @Override
+    protected int getInventoryStartIndex() {
+        return 9;
+    }
+
+    @Override
+    protected int getInteractionSlotIndex() {
+        return 0;
+    }
+
+    @Override
+    protected int[] getDropSlots() {
+        return new int[]{1, 2, 3, 4};
+    }
+
+    @Override
+    protected void interact() {
+        clickOnCraftingOutput();
+    }
+
+    /**
+     * Sends a click on the crafting output
+     */
+    private void clickOnCraftingOutput() {
+
+        Logger.info("clickOnCraftingOutput()", "Clicked on Crafing Output.");
+        leftClick(0);
+
+    }
+}
