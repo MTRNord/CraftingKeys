@@ -11,18 +11,16 @@ public abstract class Api extends ContainerManager{
 
 
     /**
-     * Creates a new ContainerManager with the given container.
+     * Creates a new ContainerManager with the given container and registers GUI
      *
+     * @param container Creates an new container :)
+     * @param name Name of the new Gui
      */
-    Api(Container container) {
+    Api(Container container, String name) {
         super(container);
-    }
-
-    public void registerGui(String name) {
         Gui gui = Gui.getInstance();
         gui.registerGui(name, new Helper.Guis() {public void configureGui() {initGui();}});
     }
-
     public abstract void initGui();
 
 
