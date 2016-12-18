@@ -12,21 +12,15 @@ import net.minecraft.util.ResourceLocation;
 
 public class APITest extends Api {
     private static APITest instance = null;
-    Gui gui = Gui.getInstance();
-
     /**
      * Creates a new ContainerManager with the given container.
      *
      * @param container
      */
     private APITest(Container container) {
-        super(container);
+        super(container, "ApiTestGui");
     }
 
-    @Override
-    public void registerGui(String name) {
-        super.registerGui(name);
-    }
 
     @Override
     public void initGui() {
